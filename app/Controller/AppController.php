@@ -14,10 +14,20 @@ App::uses('Controller', 'Controller');
 
 class AppController extends Controller 
 {
+
+	public $components = array(
+		'Session', 
+		'Auth' => array(
+			'loginRedirect' => array('controller'=>'posts', 'action' => 'index'),
+			'logoutRedirect' => array('controller'=>'pages', 'action' => 'home', 'display')
+		)
+	);
+
 	
 	public function beforeRender()
 	{
 		parent::beforeRender();
+		$this->Auth->allow(array('login'));
 		$this->layout = 'custom';
 	}
 
